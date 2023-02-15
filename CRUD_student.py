@@ -2,30 +2,32 @@ from fastapi import FastAPI
 import mysql.connector
 from pydantic import BaseModel
 from typing import Union
-
+# connect to MySQL
 mydb = mysql.connector.connect(
    host="localhost",
    user="root",
    database="mydb"
 )
+mycursor = mydb.cursor()
 
-# mycursor = mydb.cursor()
-# mycursor.execute("""
-#                 CREATE TABLE student(
-#                     id integer  auto_increment primary key,
-#                     name varchar(255) not null,
-#                     address varchar(255),
-#                     phone varchar(255)
-#                  )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-#                  """)
-app = FastAPI()
+# create table student
+mycursor.execute("""
+                CREATE TABLE student(
+                    id integer  auto_increment primary key,
+                    name varchar(255) not null,
+                    address varchar(255),
+                    phone varchar(255)
+                 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+                 """)
+
 class Student(BaseModel):
     id: int
     name: str
     address: Union[str, None] = None
     phone: Union[str, None] = None
     
-# CRUD 
+# CRUD APIs
+app = FastAPI()
 # Create
 @app.post("/create_student")
 async def create_student(student: Student):
