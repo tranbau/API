@@ -1,6 +1,6 @@
 # API
 # Document
-1. Python
+1. Python 3.6 or later
 2. FastAPI 
 3. XAMPP 
 # Implement
