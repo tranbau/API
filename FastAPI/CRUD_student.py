@@ -65,7 +65,7 @@ async def update_student(student_id: int, student: Student):
         raise HTTPException(status_code=404, detail="Student not found")
     return {"message": "Student updated successfully"}
 
-# DELETA
+# DELETE
 @app.delete("/students/{student_id}")
 async def delete_student(student_id: int):
     sql = "DELETE FROM student WHERE id = %s"
